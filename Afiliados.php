@@ -1,7 +1,8 @@
 <?php
 session_start();
 if ($_SESSION['id']){
-
+     $md5 = md5($_SESSION['id']);
+     $link = "http://localhost/ba/pages-register.php?h=".$md5;
 } else {
     $_SESSION['msg'] = "Faça Loguin para Acesar a pagina.";
     header("Location: pages-login.php");
@@ -463,7 +464,8 @@ if ($_SESSION['id']){
             </div>
         </div>
     </div>
-</div>        <div class="ui-theme-settings">
+</div>        
+    <div class="ui-theme-settings">
     <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
         <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
     </button>
@@ -800,7 +802,8 @@ if ($_SESSION['id']){
             </div>
         </div>
     </div>
-</div>        <div class="app-main">
+</div>        
+    <div class="app-main">
     <div class="app-sidebar sidebar-shadow">
         <div class="app-header__logo">
             <div class="logo-src"></div>
@@ -849,7 +852,8 @@ if ($_SESSION['id']){
                 </ul>
             </div>
         </div>
-    </div> <div class="app-main__outer">
+    </div> 
+        <div class="app-main__outer">
             <div class="app-main__inner">
                 <div class="app-inner-layout">
                     <div class="row">
@@ -896,7 +900,10 @@ if ($_SESSION['id']){
                                             <div class="widget-numbers">
                                                 <div class="widget-chart-flex">
                                                     <div>
-                                                        <h6 class="menu-header-subtitle opacity-10">HTTP://ETAL</h6>
+                                                        <h6 class="menu-header-subtitle opacity-10 "><?php
+                                                        echo $link;
+                                                        ?>
+                                                        </h6>
                                                     </div>
                                                 </div>
                                             </div>

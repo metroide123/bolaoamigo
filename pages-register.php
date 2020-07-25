@@ -1,5 +1,15 @@
 <?php
 session_start();
+if(!empty($_GET['h'])){
+  $h = filter_input(INPUT_GET, 'h', FILTER_SANITIZE_STRING); 
+}
+
+
+if(!empty($h)){
+    $IdIndicado = $h;
+} else {
+    $IdIndicado ="0";
+}
 
 ?>
 
@@ -73,11 +83,10 @@ session_start();
                                         </div>
                                     </div>
                                 </div>
-                                    <div class="col-md-12">
+                                <div class="col-md-12">
                                         <div class="position-relative form-group">
-                                            <input name="IdIndicado" id="exampleIndicado" placeholder="Codígo de quem indicou..." type="text" class="form-control">
+                                            <input name="IdIndicado" id="exampleIndicado" placeholder="<?php echo $IdIndicado ?>" type="text" class="form-control">
                                         </div>
-                                    </div>
                                 <div class="mt-3 position-relative form-check">
                                     <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
                                     <label for="exampleCheck" class="form-check-label">Accept our <a href="javascript:void(0);">Terms and Conditions</a>.</label>
