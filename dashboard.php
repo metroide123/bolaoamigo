@@ -1,6 +1,32 @@
 <?php
 session_start();
+include_once ("conn/connec.php");
 if ($_SESSION['id']) {
+     unset($result_Sorteio);
+     unset($result_Sor);
+     unset($row_sorteio);
+     unset($result_tick);
+     unset($result_tikets);
+     
+     $result_Sorteio = "SELECT * FROM sorteios WHERE status = 1 LIMIT 1";
+     $result_Sor = mysqli_query($con, $result_Sorteio);
+     $row_sorteio = mysqli_fetch_assoc($result_Sor);
+     
+     $valAtual = $row_sorteio['valor_final'];
+     $datasorteio = $row_sorteio['data_sorteio'];
+     $idsorteio = $row_sorteio['id_sorteio'];
+     
+     $id_atual = $_SESSION['id'];
+     
+     $result_Users = "SELECT * FROM usuarios WHERE id ='$id_atual' LIMIT 1";
+     $result_User = mysqli_query($con, $result_Users);
+     $row_usu = mysqli_fetch_assoc($result_User);
+     $ind_dir = $row_usu['num_indic_dir'];
+     $user_saldo = $row_usu['saldo'];
+   
+     $result_tick = "SELECT * FROM tickets WHERE id_usuario = ' $id_atual' AND id_sorteio = '$idsorteio' ";
+     $result_tikets = mysqli_query($con, $result_tick);
+    
     
 } else {
     $_SESSION['msg'] = "Faça Loguin para Acesar a pagina.";
@@ -389,7 +415,7 @@ if ($_SESSION['id']) {
                                                                     <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
                                                                 </div>
                                                                 <div class="widget-content-left">
-                                                                    <div class="widget-heading">Alina Mcloughlin</div>
+                                                                    <div class="widget-heading"><?php echo $row_usu['usuario'] ?></div>
                                                                     <div class="widget-subheading opacity-8">A short profile description</div>
                                                                 </div>
                                                                 <div class="widget-content-right mr-2" ">
@@ -859,18 +885,18 @@ if ($_SESSION['id']) {
                             <div class="col-md-6" >
                                 <div class="mb-3 text-white card-border bg-success card" style="height: 270px;" >
                                     <div class="card-header">
-                                        Proxímo Sorteio
-                                        <div class="btn-actions-pane-right">
-                                            Nº 000001
+                                            Proxímo Sorteio
+                                            <div class="btn-actions-pane-right">
+                                               Nº 0000<?php echo $idsorteio?>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <h1><p>R$  10.000,00</p></h1>
-
-                                    </div>
-                                    <div class="d-block text-right card-footer">
-                                        Data: 00/00/0000                                     
-                                    </div>
+                                        <div class="card-body text-center">
+                                            <h1><p>R$  <?php echo  $valAtual   ?>,00</p></h1>
+                                            
+                                        </div>
+                                        <div class="d-block text-right card-footer">
+                                            Data: <?php echo  date('d/m/Y',  strtotime($datasorteio ));  ?>                                    
+                                        </div>
                                 </div>
                             </div> <!-- Area de Sorteio -->
                             <div class="col-lg-6">
@@ -879,33 +905,24 @@ if ($_SESSION['id']) {
                                         <h5 class="card-title">Meus Tickets</h5>
                                         <table class="mb-0 table table-hover">
                                             <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Num Sorteio</th>
-                                                    <th>Meu Tiket</th>
-                                                    <th>Data Compra</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>@fat</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>@twitter</td>
-                                                </tr>
-                                            </tbody>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Num Sorteio</th>
+                                                <th>Meu Tiket</th>
+                                                <th>Data Compra</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <?php $i="1"; foreach ($result_tikets as $uts){ ?>
+                                            <tr>
+                                                <th scope="row"><?= $i?></th>
+                                                <td><?= $uts['id_sorteio']; ?></td>
+                                                <td><?= $uts['num_ticked']; ?></td>
+                                                <td><?= $uts['data_compra']; ?></td>
+                                            </tr>
+                                            <?php $i++; } ?>
+                                        </tbody>
                                         </table>
                                         <div></div>
                                         <div class="text-center">
@@ -922,7 +939,7 @@ if ($_SESSION['id']) {
                                     <h5 class="card-title">SALDO</h5>
                                     <div class="fsize-4">
                                         <h2> <small class="opacity-5">R$</small>
-                                            <span>1286,00</span></h2>
+                                            <span><?php echo $row_usu['saldo'] ?>,00</span></h2>
                                     </div>
                                 </div>       
                             </div> <!-- Area do Saldo -->
@@ -930,8 +947,7 @@ if ($_SESSION['id']) {
                                 <div class="card-shadow-info border mb-3 card card-body border-info" style="height: 269px;">
                                     <h5 class="card-title">INDICADOS DIRETOS</h5>
                                     <div class="fsize-4">
-                                        <h2> <small class="opacity-5">R$</small>
-                                            <span>1286,00</span></h2>
+                                        <h2> <span><?php echo $row_usu['num_indic_dir'] ?></span></h2>
                                     </div>
                                 </div>
                             </div> <!-- Area de indicados diretos -->
