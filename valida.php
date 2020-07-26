@@ -19,9 +19,10 @@ if($btnLogin){
           if($senha==$row_usuario['senha']){
               $_SESSION['id'] = $row_usuario['id'];
               $_SESSION['usuario'] = $row_usuario['usuario'];
+               
                header("Location: dashboard.php");
            } else {
-               $_SESSION['msg'] = "loguin... e senha incorreto!";
+               $_SESSION['msg'] = "loguin e senha incorreto!";
                header("Location: pages-login.php");
            }
        }

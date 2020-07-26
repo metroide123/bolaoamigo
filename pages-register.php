@@ -85,7 +85,7 @@ if(!empty($h)){
                                 </div>
                                 <div class="col-md-12">
                                         <div class="position-relative form-group">
-                                            <input name="IdIndicado" id="exampleIndicado" placeholder="<?php echo $IdIndicado ?>" type="text" class="form-control">
+                                            <input name="IdIndicado" id="exampleIndicado" placeholder="" value="<?php echo $IdIndicado ?>" type="text" class="form-control">
                                         </div>
                                 <div class="mt-3 position-relative form-check">
                                     <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
