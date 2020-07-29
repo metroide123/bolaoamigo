@@ -26,6 +26,9 @@ if ($_SESSION['id']) {
    
      $result_tick = "SELECT * FROM tickets WHERE id_usuario = ' $id_atual' AND id_sorteio = '$idsorteio' ";
      $result_tikets = mysqli_query($con, $result_tick);
+     
+     $result_notif = "SELECT titulo_post, post, data FROM notifi_post WHERE (id_user = ' $id_atual' OR id_user = 1) AND status = 1 ORDER BY data ASC"; 
+     $result_notifi = mysqli_query($con, $result_notif);
     
     
 } else {
@@ -97,7 +100,7 @@ if ($_SESSION['id']) {
                                 <div class="widget-content-left">
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
@@ -108,11 +111,11 @@ if ($_SESSION['id']) {
                                                         <div class="widget-content p-0">
                                                             <div class="widget-content-wrapper">
                                                                 <div class="widget-content-left mr-3">
-                                                                    <img width="42" class="rounded-circle" src=".assets/images/avatars/1.jpg" alt="">
+                                                                    <img width="42" class="rounded-circle" src="assets/images/avatars/2.jpg" alt="">
                                                                 </div>
                                                                 <div class="widget-content-left">
                                                                     <div class="widget-heading"><?php echo $row_usu['usuario'] ?></div>
-                                                                    <div class="widget-subheading opacity-8">Um mundo novo a ser explorado começou.</div>
+                                                                    <div class="widget-subheading opacity-8">Onde quem compartilha ganha!</div>
                                                                 </div>
                                                                 <div class="widget-content-right mr-2" ">
                                                                     <button onclick="window.location.href = 'sair.php'" class="btn-pill btn-shadow btn-shine btn btn-focus">Logout</button>
@@ -122,21 +125,19 @@ if ($_SESSION['id']) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="scroll-area-xs" style="height: 150px;">
-                                                <div class="scrollbar-container ps">
+                                            <div style="height: 150px;">
+                                                <div>
                                                     <ul class="nav flex-column">
                                                         <li class="nav-item-header nav-item">Minha Conta
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">Configurações
-                                                            </a>
+                                                            <a href="javascript:void(0);" class="nav-link">Configurações</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">Contate-nos
-                                                            </a>
+                                                            <a href="javascript:void(0);" class="nav-link">Contate-nos</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">Logs</a>
+                                                            <a href="javascript:void(0);" class="nav-link">Sobre</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -280,172 +281,26 @@ if ($_SESSION['id']) {
                                         <div class="scroll-area-sm">
                                             <div class="scrollbar-container">
                                                 <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+                                                  <?php foreach ($result_notifi as $uts){ ?>
                                                     <div class="vertical-timeline-item vertical-timeline-element">
                                                         <div>
                                                             <span class="vertical-timeline-element-icon bounce-in">
                                                                 <i class="badge badge-dot badge-dot-xl badge-success"></i>
                                                             </span>
                                                             <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">All Hands Meeting</h4>
-                                                                <p>Lorem ipsum dolor sic amet, today at 
-                                                                    <a href="javascript:void(0);">12:00 PM</a>
-                                                                </p>
-                                                                <span class="vertical-timeline-element-date">10:30 PM</span>
+                                                                <h4 class="timeline-title"><?= $uts['titulo_post']; ?></h4>
+                                                                <p><?= $uts['post']; ?></p>
+                                                                <span class="vertical-timeline-element-date"><?= $uts['data']; ?></span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-warning"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <p>Another meeting today, at <b class="text-danger">12:00 PM</b></p>
-                                                                <p>Yet another one, at <span class="text-success">15:00 PM</span></p>
-                                                                <span class="vertical-timeline-element-date">12:25 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-danger"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">Build the production release</h4>
-                                                                <p>Lorem ipsum dolor sit amit,consectetur eiusmdd tempor
-                                                                    incididunt ut labore et dolore magna elit enim at minim
-                                                                    veniam quis nostrud
-                                                                </p>
-                                                                <span class="vertical-timeline-element-date">15:00 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i  class="badge badge-dot badge-dot-xl badge-primary"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title text-success">Something not important</h4>
-                                                                <p>Lorem ipsum dolor sit amit,consectetur elit enim at minim veniam quis nostrud</p>
-                                                                <span class="vertical-timeline-element-date">15:00 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-success"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">All Hands Meeting</h4>
-                                                                <p>Lorem ipsum dolor sic amet, today at 
-                                                                    <a href="javascript:void(0);">12:00 PM</a>
-                                                                </p>
-                                                                <span class="vertical-timeline-element-date">10:30 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i  class="badge badge-dot badge-dot-xl badge-warning"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <p>Another meeting today, at <b class="text-danger">12:00 PM</b></p>
-                                                                <p>Yet another one, at <span class="text-success">15:00 PM</span></p>
-                                                                <span class="vertical-timeline-element-date">12:25 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-danger"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">Build the production release</h4>
-                                                                <p>Lorem ipsum dolor sit amit,consectetur eiusmdd tempor
-                                                                    incididunt ut labore et dolore magna elit enim at minim
-                                                                    veniam quis nostrud
-                                                                </p>
-                                                                <span class="vertical-timeline-element-date">15:00 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-primary"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title text-success">Something not important</h4>
-                                                                <p>Lorem ipsum dolor sit amit,consectetur elit enim at minim veniam quis nostrud</p>
-                                                                <span class="vertical-timeline-element-date">15:00 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-success"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">All Hands Meeting</h4>
-                                                                <p>Lorem ipsum dolor sic amet, today at 
-                                                                    <a href="javascript:void(0);">12:00 PM</a>
-                                                                </p>
-                                                                <span class="vertical-timeline-element-date">10:30 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-warning"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <p>Another meeting today, at <b class="text-danger">12:00 PM</b></p>
-                                                                <p>Yet another one, at <span class="text-success">15:00 PM</span></p>
-                                                                <span class="vertical-timeline-element-date">12:25 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-danger"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title">Build the production release</h4>
-                                                                <p>Lorem ipsum dolor sit amit,consectetur eiusmdd tempor
-                                                                    incididunt ut labore et dolore magna elit enim at minim
-                                                                    veniam quis nostrud
-                                                                </p>
-                                                                <span class="vertical-timeline-element-date">15:00 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-primary"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title text-success">Something not important</h4>
-                                                                <p>Lorem ipsum dolor sit amit,consectetur elit enim at minimveniam quis nostrud</p>
-                                                                <span class="vertical-timeline-element-date">15:00 PM</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>      
                             </div>  <!-- Area de Notificações -->
-
                         </div> <!-- Area do Saldo e Notificações -->
                     </div>
                 </div>
