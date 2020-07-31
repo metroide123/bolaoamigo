@@ -8,6 +8,8 @@ if ($_SESSION['id']) {
      unset($result_tick);
      unset($result_tikets);
      
+     
+     
      $result_Sorteio = "SELECT * FROM sorteios WHERE status = 1 LIMIT 1";
      $result_Sor = mysqli_query($con, $result_Sorteio);
      $row_sorteio = mysqli_fetch_assoc($result_Sor);
@@ -88,7 +90,8 @@ if ($_SESSION['id']) {
                         </span>
                     </button>
                 </span>
-            </div>    <div class="app-header__content">
+            </div>    
+            <div class="app-header__content">
                 <div class="app-header-left">
                     <ul class="header-megamenu nav">
                     </ul>
@@ -149,7 +152,8 @@ if ($_SESSION['id']) {
                         </div>
                     </div>
                 </div>
-            </div></div>
+            </div>
+        </div>
         <div class="app-main">
             <div class="app-sidebar bg-vicious-stance sidebar-text-light">
                 <div class="app-header__logo">
@@ -183,20 +187,36 @@ if ($_SESSION['id']) {
                     </span>
                 </div>
                 <div class="scrollbar-sidebar">
-                    <div class="app-sidebar__inner">
+                    <div class="app-sidebar__inner ">
                         <ul class="vertical-nav-menu">
                             <li  class="mm-active"      >
-                                <a class="metismenu-icon" href="#" >Dashboards</a>
-                            </li>
+                                <a href="#" >Dashboards</a>
                             <li>
                                 <a href="Sor_bilhe.php">Sorteios & Bilhetes</a>
                             </li>
-                            <li>
-                                <a href="Afiliados.php">Amigos Indicados</a>
+                            <li  >
+                                <a href="Afiliados.php"> Amigos Indicados</a>
                             </li>
                             <li>
                                 <a href="Saques_tra.php">Saques & Transações</a>
                             </li>
+                             <?php if($_SESSION['id']=="1"){ ?>
+                            <li>
+                                <a href="ap-sortatul.php">Dados Sorteio Atual</a>
+                            </li>
+                            <li>
+                                <a href="ap-aprov.php">Aprovar Saques</a>
+                            </li>
+                            <li>
+                                <a href="ap-newsort.php">Cirar Novo Sorteio</a>
+                            </li>
+                            <li>
+                                <a href="ap-sort.php">Sorteio</a>
+                            </li>
+                            <li>
+                                <a href="ap-busc.php">Busca de Usuario</a>
+                            </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
