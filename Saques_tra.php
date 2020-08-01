@@ -197,9 +197,26 @@ if ($_SESSION['id']) {
                                 <li>
                                     <a href="Afiliados.php">Amigos Indicados</a>
                                 </li>
-                                <li  class="mm-active" >
-                                    <a class="metismenu-icon" href="#">Saques & Transações</a>
+                                <li>
+                                    <a>Saques & Transações</a>
                                 </li>
+                                <?php if ($_SESSION['id'] == "1") { ?>
+                                <li>
+                                    <a href="ap-sortatul.php">Dados Sorteio Atual</a>
+                                </li>
+                                <li>
+                                    <a href="ap-aprov.php">Aprovar Saques</a>
+                                </li>
+                                <li>
+                                    <a href="ap-newsort.php">Cirar Novo Sorteio</a>
+                                </li>
+                                <li>
+                                    <a href="ap-sort.php">Sorteio</a>
+                                </li>
+                                <li>
+                                    <a href="ap-busc.php">Busca de Usuario</a>
+                                </li>
+<?php } ?>
                             </ul>
                         </div>
                     </div>

@@ -14,7 +14,7 @@ if($btnLogin){
        $result_usuario = "SELECT * FROM usuarios WHERE email = '$email_user' LIMIT 1";
 
        $result_usuarior = mysqli_query($con, $result_usuario);
-       //echo password_hash($senha, PASSWORD_DEFAULT);
+       echo "password_hash($senha, PASSWORD_DEFAULT";
        if ($result_usuarior){
           $row_usuario = mysqli_fetch_assoc($result_usuarior);
           if($senha==$row_usuario['senha'] and $email_user==$row_usuario['email'] ){

@@ -38,7 +38,7 @@ if($btnRegistra){
                                 $saldo = "0";
                                 unset($sqlr);
                                 $sqlr = "INSERT INTO usuarios ( usuario, senha, email, telefone, id_indicador1, id_indicador2,
-                                    Saldo, Nivel, status, part_sorteio) VALUES ('$usuario', '$senha', '$email', '$telefone', '$IdIndicado','$id2', '$saldo', '$nivel', '0', '0')";
+                                    saldo, nivel, status, part_sorteio) VALUES ('$usuario', '$senha', '$email', '$telefone', '$IdIndicado','$id2', '$saldo', '$nivel', '0', '0')";
                              
                                 $resq = mysqli_query($con, $sqlr);
                                 if(!empty($resq)){
@@ -61,7 +61,7 @@ if($btnRegistra){
                             $saldo = "0";
                             unset($sql);
                             $sql = "INSERT INTO usuarios ( usuario, senha, email, telefone, id_indicador1, id_indicador2,
-                                    Saldo, Nivel, status, part_sorteio) VALUES ('$usuario', '$senha', '$email', '$telefone', '$IdIndicado','$id2', '$saldo', '$nivel', '0', '0')";
+                                    saldo, nivel, status, part_sorteio) VALUES ('$usuario', '$senha', '$email', '$telefone', '$IdIndicado','$id2', '$saldo', '$nivel', '0', '0')";
                                 
                             $res = mysqli_query($con, $sql);
                             if(!empty($res)){
@@ -74,7 +74,7 @@ if($btnRegistra){
                         }
                     }
                     else {
-                        $_SESSION['msg'] = "<p style='color: red' Email já Cadastrado!</p>";
+                        $_SESSION['msg'] = "<p style='color: red'> Email já Cadastrado!</p>";
                         header("Location: pages-register.php");
                     }
         }

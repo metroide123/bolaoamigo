@@ -228,7 +228,7 @@ if ($_SESSION['id'] == "1") {
                                         <a href="ap-sort.php">Sorteio</a>
                                     </li>
                                     <li>
-                                        <a href="ap-busc.php">Busca de Usuario</a>
+                                        <a>Busca de Usuario</a>
                                     </li>
 <?php } ?>
                             </ul>

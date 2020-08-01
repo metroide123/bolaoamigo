@@ -198,7 +198,7 @@ if ($_SESSION['id'] == "1") {
                                         <a href="ap-aprov.php">Aprovar Saques</a>
                                     </li>
                                     <li>
-                                        <a href="ap-newsort.php">Cirar Novo Sorteio</a>
+                                        <a >Cirar Novo Sorteio</a>
                                     </li>
                                     <li>
                                         <a href="ap-sort.php">Sorteio</a>

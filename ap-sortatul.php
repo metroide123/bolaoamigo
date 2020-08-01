@@ -254,7 +254,7 @@ if ($_SESSION['id']) {
                             </li>
 <?php if ($_SESSION['id'] == "1") { ?>
                                 <li>
-                                    <a href="ap-sortatul.php">Dados Sorteio Atual</a>
+                                    <a>Dados Sorteio Atual</a>
                                 </li>
                                 <li>
                                     <a href="ap-aprov.php">Aprovar Saques</a>

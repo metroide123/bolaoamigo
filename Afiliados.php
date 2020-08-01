@@ -175,12 +175,29 @@ if ($_SESSION['id']){
                     <li>
                         <a href="Sor_bilhe.php">Sorteios & Bilhetes</a>
                     </li>
-                    <li class="mm-active">
+                    <li>
                         <a> Amigos e Indicados</a>
                     </li>
                     <li >
                         <a  href="Saques_tra.php">Saques & Transações</a>
                     </li>
+                    <?php if ($_SESSION['id'] == "1") { ?>
+                                <li>
+                                    <a href="ap-sortatul.php">Dados Sorteio Atual</a>
+                                </li>
+                                <li>
+                                    <a href="ap-aprov.php">Aprovar Saques</a>
+                                </li>
+                                <li>
+                                    <a href="ap-newsort.php">Cirar Novo Sorteio</a>
+                                </li>
+                                <li>
+                                    <a href="ap-sort.php">Sorteio</a>
+                                </li>
+                                <li>
+                                    <a href="ap-busc.php">Busca de Usuario</a>
+                                </li>
+<?php } ?>
                 </ul>
             </div>
         </div>
@@ -191,7 +208,7 @@ if ($_SESSION['id']){
                     <div class="row">
                                 <div class="col-md-6 col-lg-6 col-xl-12">
                                     <div class="main-card mb-3 card">
-                                        <div class="card-header">Header</div>
+                                        <div class="card-header">Link de Afiliado</div>
                                         <div class="card-body">
                                             <h4><p class="mb-0" align="center"><?php
                                                         echo $link;

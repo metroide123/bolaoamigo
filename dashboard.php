@@ -190,7 +190,7 @@ if ($_SESSION['id']) {
                     <div class="app-sidebar__inner ">
                         <ul class="vertical-nav-menu">
                             <li  class="mm-active"      >
-                                <a href="#" >Dashboards</a>
+                                <a>Dashboards</a>
                             <li>
                                 <a href="Sor_bilhe.php">Sorteios & Bilhetes</a>
                             </li>
