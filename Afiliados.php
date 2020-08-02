@@ -2,9 +2,9 @@
 session_start();
 include_once ("conn/connec.php");
 if ($_SESSION['id']){
-     //$md5 = md5($_SESSION['id']);
+     
     
-     $link = "http://localhost/ba/pages-register.php?h=".$_SESSION['id'];
+     $link = "http://bolaoamigo.com/pages-register.php?h=".$_SESSION['id'];
      $id = $_SESSION['id'];
      $result_afiliados = "SELECT * FROM usuarios WHERE id ='$id' LIMIT 1";
      $result_afiliados = mysqli_query($con, $result_afiliados);
