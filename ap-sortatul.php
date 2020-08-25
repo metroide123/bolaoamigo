@@ -6,6 +6,11 @@ if ($_SESSION['id']) {
 
     $id_atual = $_SESSION['id'];
      
+     $result_n = "SELECT nivel_acesso FROM usuarios WHERE id = $id_atual LIMIT 1";
+     $result_nn = mysqli_query($con, $result_n);
+     $row_ni = mysqli_fetch_assoc($result_nn);
+     $ac = $row_ni['nivel_acesso'];
+     
      $result_Users = "SELECT * FROM usuarios WHERE id ='$id_atual' LIMIT 1";
      $result_User = mysqli_query($con, $result_Users);
      $row_usu = mysqli_fetch_assoc($result_User);
@@ -247,12 +252,12 @@ if ($_SESSION['id']) {
                                 <a href="Sor_bilhe.php">Sorteios & Bilhetes</a>
                             </li>
                             <li>
-                                <a href="Afiliados.php.php" > Amigos e Indicados</a>
+                                <a href="Afiliados.php" > Amigos e Indicados</a>
                             </li>
                             <li >
                                 <a  href="Saques_tra.php">Saques & Transações</a>
                             </li>
-<?php if ($_SESSION['id'] == "1") { ?>
+<?php if($ac=="1"){ ?>
                                 <li>
                                     <a>Dados Sorteio Atual</a>
                                 </li>
@@ -294,7 +299,7 @@ if ($_SESSION['id']) {
                                     </div>
                                 </div>
                             </div> <!-- Area de Sorteio -->
-                            <div class="col-md-6 col-xl-3" >
+                            <div class="col-md-6" >
                                 <div class="card-shadow-success border mb-3 card card-body border-success " style="height: 269px;">
                                     <h5 class="card-title">SALDO</h5>
                                     <div class="fsize-4">

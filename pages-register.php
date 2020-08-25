@@ -1,5 +1,8 @@
 <?php
 session_start();
+if ($_SESSION['id']) {
+    header("Location: dashboard.php");
+}
 if (!empty(filter_input(INPUT_GET, 'h', FILTER_SANITIZE_STRING))) {
     $h = filter_input(INPUT_GET, 'h', FILTER_SANITIZE_STRING);
 }
@@ -45,7 +48,7 @@ if (!empty($h)) {
                                     <div class="modal-body">
                                         <h5 class="modal-title">
                                             <h4 class="mt-2">
-                                                <div>Bem Vindo,</div>
+                                                <div>Bem vindo,</div>
                                                 <span>Leva apenas alguns <span class="text-success">segundos</span> para criar sua conta.</span>
                                             </h4>
                                         </h5>
@@ -55,7 +58,7 @@ if (!empty($h)) {
                                             unset($_SESSION['msg']);
                                         }
                                         ?>
-                                        <form id="signupForm" method="post" action="prod_cad.php">
+                                        <form method="post" action="prod_cad.php">
                                             <div class="divider row"></div>
                                             <div class="form-row">
                                                 <div class="col-md-12">
@@ -70,17 +73,17 @@ if (!empty($h)) {
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="position-relative form-group">
-                                                        <input name="telefone" id="exampleTel" placeholder="telefone..." type="tel" class="form-control">
+                                                        <input name="telefone" id="exampleTel" placeholder="Telefone..." type="tel" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="position-relative form-group">
-                                                        <input name="password"  class="form-control"  id="examplePassword" placeholder="Senha..." type="password"  class="form-control">
+                                                        <input name="password"  class="form-control"  id="examplePassword" placeholder="Senha..." class="form-control"  id="examplePassword"." type="password"  class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="position-relative form-group">
-                                                        <input name="passwordrep" class="form-control"  placeholder="Confirmar Senha..." type="password" class="form-control">
+                                                        <input name="passwordrep" class="form-control" placeholder="Confirmar Senha..." type="password" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,7 +99,7 @@ if (!empty($h)) {
                                                     <input type="submit" name="btnRegistrar" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" value="Cadastrar">
                                                 </div>   
                                                 <div class="divider row"></div>
-                                                <h6 class="mb-0">Já Possue uma conta?
+                                                <h6 class="mb-0">Já possui uma conta?
                                                     <a href="pages-login.php" class="text-primary">Logar</a> | <a href="pg-recuperasenha.php" class="text-primary">Recuperar Senha</a>
                                                 </h6>
                                             </div>

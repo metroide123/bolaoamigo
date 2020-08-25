@@ -16,20 +16,27 @@ if($btnLogin){
        $result_usuarior = mysqli_query($con, $result_usuario);
        
        if ($result_usuarior){
-          $row_usuario = mysqli_fetch_assoc($result_usuarior);         
+          $row_usuario = mysqli_fetch_assoc($result_usuarior);   
+          if($row_usuario['status'] == "1"){
           if($senha== $row_usuario['senha'] and $email_user==$row_usuario['email'] ){
               $_SESSION['id'] = $row_usuario['id'];
               $_SESSION['usuario'] = $row_usuario['usuario'];
-              $_ac = $row_usuario['nivel_acesso'];
               
                header("Location: dashboard.php");
-           } else {
-               $_SESSION['msg'] = "loguin e senha incorreto!";
+           } 
+           else {
+               $_SESSION['msg'] = "login e senha incorreto!";
                header("Location: pages-login.php");
            }
-       }
+          } else {
+              $_SESSION['msg'] = "Você ainda não verificou seu email.";
+              header("Location: pages-login.php");
+          }       
+           
+           }
+       
     } else {
-        $_SESSION['msg'] = "Digite loguin,, e senha!";
+        $_SESSION['msg'] = "Digite login e senha!";
         header("Location: pages-login.php");
     }
 } else {

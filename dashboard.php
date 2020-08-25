@@ -2,37 +2,40 @@
 session_start();
 include_once ("conn/connec.php");
 if ($_SESSION['id']) {
-     unset($result_Sorteio);
-     unset($result_Sor);
-     unset($row_sorteio);
-     unset($result_tick);
-     unset($result_tikets);
-     
-     
-     
-     $result_Sorteio = "SELECT * FROM sorteios WHERE status = 1 LIMIT 1";
-     $result_Sor = mysqli_query($con, $result_Sorteio);
-     $row_sorteio = mysqli_fetch_assoc($result_Sor);
-     
-     $valAtual = $row_sorteio['valor_final'];
-     $datasorteio = $row_sorteio['data_sorteio'];
-     $idsorteio = $row_sorteio['id_sorteio'];
-     
-     $id_atual = $_SESSION['id'];
-     
-     $result_Users = "SELECT * FROM usuarios WHERE id ='$id_atual' LIMIT 1";
-     $result_User = mysqli_query($con, $result_Users);
-     $row_usu = mysqli_fetch_assoc($result_User);
-     $ind_dir = $row_usu['num_indic_dir'];
-     $user_saldo = $row_usu['saldo'];
-   
-     $result_tick = "SELECT * FROM tickets WHERE id_usuario = ' $id_atual' AND id_sorteio = '$idsorteio' ";
-     $result_tikets = mysqli_query($con, $result_tick);
-     
-     $result_notif = "SELECT titulo_post, post, data FROM notifi_post WHERE (id_user = ' $id_atual' OR id_user = 1) AND status = 1 ORDER BY data ASC"; 
-     $result_notifi = mysqli_query($con, $result_notif);
-    
-    
+    unset($result_Sorteio);
+    unset($result_Sor);
+    unset($row_sorteio);
+    unset($result_tick);
+    unset($result_tikets);
+    $id_atual = $_SESSION['id'];
+
+    $result_n = "SELECT nivel_acesso FROM usuarios WHERE id = $id_atual LIMIT 1";
+    $result_nn = mysqli_query($con, $result_n);
+    $row_ni = mysqli_fetch_assoc($result_nn);
+    $ac = $row_ni['nivel_acesso'];
+
+
+    $result_Sorteio = "SELECT * FROM sorteios WHERE status = 1 LIMIT 1";
+    $result_Sor = mysqli_query($con, $result_Sorteio);
+    $row_sorteio = mysqli_fetch_assoc($result_Sor);
+
+    $valAtual = $row_sorteio['valor_final'];
+    $datasorteio = $row_sorteio['data_sorteio'];
+    $idsorteio = $row_sorteio['id_sorteio'];
+
+
+
+    $result_Users = "SELECT * FROM usuarios WHERE id ='$id_atual' LIMIT 1";
+    $result_User = mysqli_query($con, $result_Users);
+    $row_usu = mysqli_fetch_assoc($result_User);
+    $ind_dir = $row_usu['num_indic_dir'];
+    $user_saldo = $row_usu['saldo'];
+
+    $result_tick = "SELECT * FROM tickets WHERE id_usuario = ' $id_atual' AND id_sorteio = '$idsorteio' AND status = 1 LIMIT 3";
+    $result_tikets = mysqli_query($con, $result_tick);
+
+    $result_notif = "SELECT titulo_post, post, data FROM notifi_post WHERE (id_user = ' $id_atual' OR id_user = 1) AND status = 1 ORDER BY data ASC";
+    $result_notifi = mysqli_query($con, $result_notif);
 } else {
     $_SESSION['msg'] = "Faça Loguin para Acesar a pagina.";
     header("Location: pages-login.php");
@@ -97,7 +100,7 @@ if ($_SESSION['id']) {
                     </ul>
                 </div>
                 <div class="app-header-right">
-                     <div class="header-btn-lg pr-0">
+                    <div class="header-btn-lg pr-0">
                         <div class="widget-content p-0">
                             <div class="widget-content-wrapper">
                                 <div class="widget-content-left">
@@ -134,13 +137,13 @@ if ($_SESSION['id']) {
                                                         <li class="nav-item-header nav-item">Minha Conta
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">Configurações</a>
+                                                            <a href="pg-configusuario.php" class="nav-link">Configurações</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">Contate-nos</a>
+                                                            <a href="contact.html" target="_blank" class="nav-link">Contate-nos</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a href="javascript:void(0);" class="nav-link">Sobre</a>
+                                                            <a href="terms.html" target="_blank" class="nav-link">Sobre</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -200,23 +203,23 @@ if ($_SESSION['id']) {
                             <li>
                                 <a href="Saques_tra.php">Saques & Transações</a>
                             </li>
-                             <?php if($_SESSION['id']=="1"){ ?>
-                            <li>
-                                <a href="ap-sortatul.php">Dados Sorteio Atual</a>
-                            </li>
-                            <li>
-                                <a href="ap-aprov.php">Aprovar Saques</a>
-                            </li>
-                            <li>
-                                <a href="ap-newsort.php">Cirar Novo Sorteio</a>
-                            </li>
-                            <li>
-                                <a href="ap-sort.php">Sorteio</a>
-                            </li>
-                            <li>
-                                <a href="ap-busc.php">Busca de Usuario</a>
-                            </li>
-                            <?php } ?>
+<?php if ($ac == "1") { ?>
+                                <li>
+                                    <a href="ap-sortatul.php">Dados Sorteio Atual</a>
+                                </li>
+                                <li>
+                                    <a href="ap-aprov.php">Aprovar Saques</a>
+                                </li>
+                                <li>
+                                    <a href="ap-newsort.php">Cirar Novo Sorteio</a>
+                                </li>
+                                <li>
+                                    <a href="ap-sort.php">Sorteio</a>
+                                </li>
+                                <li>
+                                    <a href="ap-busc.php">Busca de Usuario</a>
+                                </li>
+<?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -228,48 +231,50 @@ if ($_SESSION['id']) {
                             <div class="col-md-6" >
                                 <div class="mb-3 text-white card-border bg-success card" style="height: 270px;" >
                                     <div class="card-header">
-                                            Proxímo Sorteio
-                                            <div class="btn-actions-pane-right">
-                                               Nº 0000<?php echo $idsorteio?>
-                                            </div>
+                                        Proxímo Sorteio
+                                        <div class="btn-actions-pane-right">
+                                            Nº 0000<?php echo $idsorteio ?>
                                         </div>
-                                        <div class="card-body text-center">
-                                            <h1><p>R$  <?php echo  $valAtual   ?>,00</p></h1>
-                                            
-                                        </div>
-                                        <div class="d-block text-right card-footer">
-                                            Data: <?php echo  date('d/m/Y',  strtotime($datasorteio ));  ?>                                    
-                                        </div>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h1><p>R$  <?php echo $valAtual ?>,00</p></h1>
+
+                                    </div>
+                                    <div class="d-block text-right card-footer">
+                                        Data: <?php echo date('d/m/Y', strtotime($datasorteio)); ?>                                    
+                                    </div>
                                 </div>
                             </div> <!-- Area de Sorteio -->
                             <div class="col-lg-6">
                                 <div class="main-card mb-3 card" style="height: 270px;">
                                     <div class="card-body">
                                         <h5 class="card-title">Meus Tickets</h5>
-                                        <table class="mb-0 table table-hover">
+                                        <table class="mb-5 table table-hover">
                                             <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Num Sorteio</th>
-                                                <th>Meu Tiket</th>
-                                                <th>Data Compra</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            
-                                            <?php $i="1"; foreach ($result_tikets as $uts){ ?>
-                                            <tr>
-                                                <th scope="row"><?= $i?></th>
-                                                <td><?= $uts['id_sorteio']; ?></td>
-                                                <td><?= $uts['num_ticked']; ?></td>
-                                                <td><?= $uts['data_compra']; ?></td>
-                                            </tr>
-                                            <?php $i++; } ?>
-                                        </tbody>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Num Sorteio</th>
+                                                    <th>Meu Tiket</th>
+                                                    <th>Data Compra</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+<?php $i = "1";
+foreach ($result_tikets as $uts) { ?>
+                                                    <tr>
+                                                        <th scope="row"><?= $i ?></th>
+                                                        <td><?= $uts['id_sorteio']; ?></td>
+                                                        <td><?= $uts['num_ticked']; ?></td>
+                                                        <td><?= $uts['data_compra']; ?></td>
+                                                    </tr>
+                                                    <?php $i++;
+                                                } ?>
+                                            </tbody>
                                         </table>
                                         <div></div>
-                                        <div class="text-center">
-                                            <button class="btn-wide mb-2 mr-2 btn-icon btn-icon-right btn-shadow btn-pill btn btn-outline-success btn-lg">COMPRAR TICKET</button>
+                                        <div class="text-center"> 
+                                            <a href="pag_enc.php" class="btn-wide mb-2 mr-2 btn-icon btn-icon-right btn-shadow btn-pill btn btn-outline-success btn-lg"onclick="return confirm('Precione ok para continuar com sua compra, sendo redirecionado ao mercado pago.');" >COMPRAR TICKET</a>
                                             <h2 class="card-title"></h2>
                                         </div>
                                     </div>
@@ -301,19 +306,19 @@ if ($_SESSION['id']) {
                                         <div class="scroll-area-sm">
                                             <div class="scrollbar-container">
                                                 <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
-                                                  <?php foreach ($result_notifi as $uts){ ?>
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                        <div>
-                                                            <span class="vertical-timeline-element-icon bounce-in">
-                                                                <i class="badge badge-dot badge-dot-xl badge-success"></i>
-                                                            </span>
-                                                            <div class="vertical-timeline-element-content bounce-in">
-                                                                <h4 class="timeline-title"><?= $uts['titulo_post']; ?></h4>
-                                                                <p><?= $uts['post']; ?></p>
-                                                                <span class="vertical-timeline-element-date"><?= $uts['data']; ?></span>
+                                                    <?php foreach ($result_notifi as $uts) { ?>
+                                                        <div class="vertical-timeline-item vertical-timeline-element">
+                                                            <div>
+                                                                <span class="vertical-timeline-element-icon bounce-in">
+                                                                    <i class="badge badge-dot badge-dot-xl badge-success"></i>
+                                                                </span>
+                                                                <div class="vertical-timeline-element-content bounce-in">
+                                                                    <h4 class="timeline-title"><?= $uts['titulo_post']; ?></h4>
+                                                                    <p><?= $uts['post']; ?></p>
+                                                                    <span class="vertical-timeline-element-date"><?= $uts['data']; ?></span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                     <?php } ?>
                                                 </div>
                                             </div>

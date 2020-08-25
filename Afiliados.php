@@ -5,8 +5,14 @@ if ($_SESSION['id']){
      
     
      $link = "http://bolaoamigo.com/pages-register.php?h=".$_SESSION['id'];
-     $id = $_SESSION['id'];
-     $result_afiliados = "SELECT * FROM usuarios WHERE id ='$id' LIMIT 1";
+     $id_atual = $_SESSION['id'];
+     
+     $result_n = "SELECT nivel_acesso FROM usuarios WHERE id = $id_atual LIMIT 1";
+     $result_nn = mysqli_query($con, $result_n);
+     $row_ni = mysqli_fetch_assoc($result_nn);
+     $ac = $row_ni['nivel_acesso'];
+     
+     $result_afiliados = "SELECT * FROM usuarios WHERE id ='$id_atual' LIMIT 1";
      $result_afiliados = mysqli_query($con, $result_afiliados);
      $row_usuario1 = mysqli_fetch_assoc($result_afiliados);
      $iddir1 = $row_usuario1['num_indic_dir'];
@@ -181,7 +187,7 @@ if ($_SESSION['id']){
                     <li >
                         <a  href="Saques_tra.php">Saques & Transações</a>
                     </li>
-                    <?php if ($_SESSION['id'] == "1") { ?>
+                   <?php if($ac=="1"){ ?>
                                 <li>
                                     <a href="ap-sortatul.php">Dados Sorteio Atual</a>
                                 </li>

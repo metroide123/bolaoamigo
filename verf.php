@@ -7,7 +7,7 @@ if (!empty(filter_input(INPUT_GET, 'h', FILTER_SANITIZE_STRING))) {
 if (!empty($h)) {
     unset($result_usuario);
     unset($result_usuario1);
-    $result_usuario = "SELECT * FROM usuarios WHERE md5(id) = '$h' LIMIT 1";
+    $result_usuario = "SELECT * FROM usuarios WHERE MD5(id) = '$h' LIMIT 1";
     $result_usuario1 = mysqli_query($con, $result_usuario);
     $row_usu = mysqli_fetch_assoc($result_usuario1);
     if ($row_usu['status'] == "0") {
@@ -25,7 +25,7 @@ if (!empty($h)) {
             $result_usuario2 = mysqli_query($con, $sql_up);
         }
 
-        $id3 = $row_usuario['id_indicador2'];
+        $id3 = $row_usu['id_indicador2'];
         if ($id3 != "0") {
             unset($result_usuario);
             unset($result_usuario1);

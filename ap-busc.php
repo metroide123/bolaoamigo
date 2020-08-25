@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once ("conn/connec.php");
-if ($_SESSION['id'] == "1") {
+if ($_SESSION['id']) {
     unset($result_Users);
     unset($row_usu);
     unset($row_sorteio);
@@ -10,7 +10,12 @@ if ($_SESSION['id'] == "1") {
 
 
     $id_atual = $_SESSION['id'];
-
+     
+     $result_n = "SELECT nivel_acesso FROM usuarios WHERE id = $id_atual LIMIT 1";
+     $result_nn = mysqli_query($con, $result_n);
+     $row_ni = mysqli_fetch_assoc($result_nn);
+     $ac = $row_ni['nivel_acesso'];
+    
     $result_Users = "SELECT * FROM usuarios ";
     $result_User = mysqli_query($con, $result_Users);
 
@@ -214,7 +219,7 @@ if ($_SESSION['id'] == "1") {
                                 <li   >
                                     <a href="#">Saques & Transações</a>
                                 </li>
-<?php if ($_SESSION['id'] == "1") { ?>
+<?php if($ac=="1"){ ?>
                                     <li>
                                         <a href="ap-sortatul.php">Dados Sorteio Atual</a>
                                     </li>

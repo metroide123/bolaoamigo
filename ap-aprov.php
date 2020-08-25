@@ -7,9 +7,12 @@ if ($_SESSION['id']) {
     unset($row_sorteio);
     unset($result_tick);
     unset($result_tikets);
-
-
-    $id_atual = $_SESSION['id'];
+$id_atual = $_SESSION['id'];
+     
+     $result_n = "SELECT nivel_acesso FROM usuarios WHERE id = $id_atual LIMIT 1";
+     $result_nn = mysqli_query($con, $result_n);
+     $row_ni = mysqli_fetch_assoc($result_nn);
+     $ac = $row_ni['nivel_acesso'];
 
     $result_Users = "SELECT * FROM usuarios WHERE id ='$id_atual' LIMIT 1";
     $result_User = mysqli_query($con, $result_Users);
@@ -17,10 +20,10 @@ if ($_SESSION['id']) {
     $ind_dir = $row_usu['num_indic_dir'];
     $user_saldo = $row_usu['saldo'];
 
-    $result_saques_espera = "SELECT * FROM saques WHERE id_usuario = ' $id_atual' AND status = 0 ";
+    $result_saques_espera = "SELECT * FROM saques WHERE status = 0 ";
     $result_saque_espera = mysqli_query($con, $result_saques_espera);
 
-    $result_saques_historico = "SELECT * FROM saques WHERE id_usuario = ' $id_atual' AND (status = 1 OR status = 2)";
+    $result_saques_historico = "SELECT * FROM saques WHERE status = 1 OR status = 2";
     $result_saque_historico = mysqli_query($con, $result_saques_historico);
 } else {
     $_SESSION['msg'] = "Faça Loguin para Acesar a pagina.";
@@ -189,15 +192,15 @@ if ($_SESSION['id']) {
                                 <li>
                                     <a href="Afiliados.php">Amigos Indicados</a>
                                 </li>
-                                <li  class="mm-active" >
-                                    <a href="#">Saques & Transações</a>
+                                <li  >
+                                    <a href="Saques_tra.php" >Saques & Transações</a>
                                 </li>
-<?php if ($_SESSION['id'] == "1") { ?>
+<?php if($ac=="1"){ ?>
                                     <li>
                                         <a href="ap-sortatul.php">Dados Sorteio Atual</a>
                                     </li>
-                                    <li>
-                                        <a>Aprovar Saques</a>
+                                    <li  class="mm-active">
+                                        <a href="#">Aprovar Saques</a>
                                     </li>
                                     <li>
                                         <a href="ap-newsort.php">Cirar Novo Sorteio</a>
@@ -230,17 +233,6 @@ if (isset($_SESSION['msg'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 col-xl-6" >
-                                <div class="card-shadow-success border mb-3 card card-body border-success " style="height: 269px;">
-                                    <h5 class="card-title">SALDO</h5>
-                                    <div class="fsize-4">
-                                        <h2> <small class="opacity-5">R$</small>
-                                            <span><?php echo $row_usu['saldo'] ?>,00</span></h2>
-                                    </div>
-                                </div>       
-                            </div> <!-- Area do Saldo -->
-                        </div> <!-- Area do Saldo e saque-->
                         <div class="main-card mb-3 card col-xl-12">
                             <div class="card-body">
                                 <h5 class="card-title">SAQUES AGUARDANDO APROVAÇÃO</h5>
@@ -272,8 +264,8 @@ foreach ($result_saque_espera as $uts) {
                                                 <td><?= $uts['valor_saque']; ?></td>
                                                 <td class="text-warning">Aguardando</td>
                                                 <td><?= date('d/m/Y', strtotime($uts['data'])); ?></td>
-                                                <td> <a href="<?php echo "http://localhost/ba/pg-ex-sort.php?h=" . $uts['id_sorteio']; ?>" class="btn btn-primary btn-group" onclick="return confirm('Tem certeza que deseja excuir o sorteio?');">Aprovar</a>
-                                                <a href="<?php echo "http://localhost/ba/pg-ex-sort.php?h=" . $uts['id_sorteio']; ?>" class="btn btn-danger btn-group" onclick="return confirm('Tem certeza que deseja excuir o sorteio?');">Cancelar</a></td>
+                                                <td> <a href="<?php echo "https://bolaoamigo.com/pg-aprovasaque.php?h=" . $uts['id_saque']; ?>" class="btn btn-primary btn-group" onclick="return confirm('Tem certeza que deseja aprovar saque!');">Aprovar</a>
+                                                <a href="<?php echo "https://bolaoamigo.com/pg-reprovasaque.php?h=" . $uts['id_saque']; ?>" class="btn btn-danger btn-group" onclick="return confirm('Tem certeza que deseja excluir Saque!?');">Reprovar</a></td>
 
                                             </tr>
     <?php
@@ -310,7 +302,7 @@ foreach ($result_saque_historico as $uts) { ?>
                                                 <?php if ($uts['status'] == "2") { ?>
                                                     <td class="text-danger">Reprovado</td>
                                                 <?php } else if ($uts['status'] == "1") { ?>
-                                                    <td class="text-success">Em Andamento</td>
+                                                    <td class="text-success">Aprovado</td>
     <?php } ?>
                                                 <td><?= $uts['data']; ?></td>
                                             </tr>
